@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	. "github.com/3d0c/gmf"
+	. "github.com/wang1219/gmf"
 )
 
 func fatal(err interface{}) {
