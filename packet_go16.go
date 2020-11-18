@@ -107,3 +107,13 @@ func (p *Packet) Free() {
 func (p *Packet) Time(timebase AVRational) int {
 	return int(float64(timebase.AVR().Num) / float64(timebase.AVR().Den) * float64(p.Pts()))
 }
+
+func (p *Packet) RescaleTime(srcTimeBase, dstTimeBase AVRational) {
+	src := (*C.AVRational)(unsafe.Pointer(&srcTimeBase))
+	dst := (*C.AVRational)(unsafe.Pointer(&dstTimeBase))
+	C.av_packet_rescale_ts(&p.avPacket, *src, *dst)
+}
+
+func (p *Packet) SetPosition(position int64) {
+	p.avPacket.pos = (C.int64_t)(position)
+}
