@@ -333,10 +333,10 @@ func (cc *CodecCtx) TimeBase() AVRational {
 	return AVRational(cc.avCodecCtx.time_base)
 }
 
-func (cc *CodecCtx) ChannelLayout() int {
-	return int(cc.avCodecCtx.channel_layout)
+func (cc *CodecCtx) ChannelLayout() ChannelLayout {
+	return (ChannelLayout)(cc.avCodecCtx.channel_layout)
 }
-func (cc *CodecCtx) SetChannelLayout(channelLayout int) {
+func (cc *CodecCtx) SetChannelLayout(channelLayout ChannelLayout) {
 	cc.avCodecCtx.channel_layout = C.uint64_t(channelLayout)
 }
 
@@ -456,8 +456,8 @@ func (cc *CodecCtx) SelectSampleRate() int {
 	return int(C.select_sample_rate(cc.codec.avCodec))
 }
 
-func (cc *CodecCtx) SelectChannelLayout() int {
-	return int(C.select_channel_layout(cc.codec.avCodec))
+func (cc *CodecCtx) SelectChannelLayout() ChannelLayout {
+	return (ChannelLayout)(C.select_channel_layout(cc.codec.avCodec))
 }
 
 func (cc *CodecCtx) FlushBuffers() {
@@ -538,8 +538,8 @@ func (cc *CodecCtx) GetChannelLayoutName() string {
 	return str
 }
 
-func (this *CodecCtx) GetDefaultChannelLayout(ac int) int {
-	return int(C.av_get_default_channel_layout(C.int(ac)))
+func (this *CodecCtx) GetDefaultChannelLayout(ac int) ChannelLayout {
+	return (ChannelLayout)(C.av_get_default_channel_layout(C.int(ac)))
 }
 
 func (cc *CodecCtx) GetBitsPerSample() int {

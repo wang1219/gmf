@@ -73,6 +73,10 @@ func (this *AVAudioFifo) SamplesCanWrite() int {
 	return int(C.av_audio_fifo_space(this.avAudioFifo))
 }
 
+func (this *AVAudioFifo) Realloc(nbSamples int) int {
+	return int(C.av_audio_fifo_realloc(this.avAudioFifo, (C.int)(nbSamples)))
+}
+
 func (this *AVAudioFifo) Write(frame *Frame) int {
 	return int(C.write_fifo(this.avAudioFifo, frame.avFrame, C.int(frame.NbSamples())))
 }

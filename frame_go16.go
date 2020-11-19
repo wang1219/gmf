@@ -234,13 +234,13 @@ func (f *Frame) SetNbSamples(val int) *Frame {
 	return f
 }
 
-func (f *Frame) SetChannelLayout(val int) *Frame {
+func (f *Frame) SetChannelLayout(val ChannelLayout) *Frame {
 	f.avFrame.channel_layout = (_Ctype_uint64_t)(val)
 	return f
 }
 
-func (f *Frame) GetChannelLayout() int {
-	return int(f.avFrame.channel_layout)
+func (f *Frame) GetChannelLayout() ChannelLayout {
+	return (ChannelLayout)(f.avFrame.channel_layout)
 }
 
 func (f *Frame) SetChannels(val int) *Frame {

@@ -90,6 +90,7 @@ type FmtCtx struct {
 	customPb bool
 }
 
+
 func init() {
 	C.avformat_network_init()
 	C.avdevice_register_all()
@@ -627,4 +628,10 @@ func (this *OutputFmt) MimeType() string {
 
 func (this *OutputFmt) Infomation() string {
 	return this.Filename + ":" + this.Name() + "#" + this.LongName() + "#" + this.MimeType()
+}
+
+func (this *OutputFmt) GuessCodecID(filename string, mediaType int32) int {
+	cFilename := C.CString(filename)
+	defer C.free(unsafe.Pointer(cFilename))
+	return (int)(C.av_guess_codec(this.avOutputFmt, nil, cFilename, nil, C.enum_AVMediaType(mediaType)))
 }
