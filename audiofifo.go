@@ -54,7 +54,6 @@ type AVAudioFifo struct {
 func NewAVAudioFifo(sampleFormat int32, channels int, nb_samples int) *AVAudioFifo {
 	fifo := C.av_audio_fifo_alloc(sampleFormat, C.int(channels), C.int(nb_samples))
 	if fifo == nil {
-		panic("unable to allocate fifo context\n")
 		return nil
 	}
 

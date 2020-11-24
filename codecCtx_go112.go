@@ -404,13 +404,14 @@ func (cc *CodecCtx) SetMbDecision(val int) *CodecCtx {
 	return cc
 }
 
-func (cc *CodecCtx) SetSampleFmt(val int32) *CodecCtx {
+func (cc *CodecCtx) SetSampleFmt(val int32) error {
 	if int(C.check_sample_fmt(cc.codec.avCodec, val)) == 0 {
-		panic(fmt.Sprintf("encoder doesn't support sample format %s", GetSampleFmtName(val)))
+		// panic(fmt.Sprintf("encoder doesn't support sample format %s", GetSampleFmtName(val)))
+		return errors.New(fmt.Sprintf("encoder doesn't support sample format %s", GetSampleFmtName(val)))
 	}
 
 	cc.avCodecCtx.sample_fmt = val
-	return cc
+	return nil
 }
 
 func (cc *CodecCtx) SetSampleRate(val int) *CodecCtx {
